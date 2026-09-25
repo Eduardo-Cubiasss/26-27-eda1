@@ -1,12 +1,15 @@
 public class Cola {
 
-    private Cliente[] clientes;
-    private final int CAPACIDAD_MAXIMA = 30;
-    private int tamaño;
-    private Console console;
+    protected Cliente[] clientes;
+    protected int tamaño;
+    protected Console console;
 
     public Cola() {
-        clientes = new Cliente[CAPACIDAD_MAXIMA];
+        this(15);
+    }
+
+    public Cola(int capacidad) {
+        clientes = new Cliente[capacidad];
         tamaño = 0;
         console = new Console();
     }
@@ -26,11 +29,11 @@ public class Cola {
         return true;
     }
 
-    private void insertarAlFinal(Cliente cliente) {
+    protected void insertarAlFinal(Cliente cliente) {
         clientes[tamaño] = cliente;
     }
 
-    private void insertarPrioritario(Cliente clientePrioritario) {
+    protected void insertarPrioritario(Cliente clientePrioritario) {
         int indiceInsercion = 0;
         for (int i = 0; i < tamaño; i++) {
             if (clientes[i].tienePrioridad()) {
@@ -64,11 +67,15 @@ public class Cola {
     }
 
     public boolean estaLlena() {
-        return tamaño >= CAPACIDAD_MAXIMA;
+        return tamaño >= clientes.length;
     }
 
     public int obtenerCantidadPersonasEnCola() {
         return tamaño;
+    }
+
+    public int obtenerCapacidadMaxima() {
+        return clientes.length;
     }
 
     public Cliente primero() {
