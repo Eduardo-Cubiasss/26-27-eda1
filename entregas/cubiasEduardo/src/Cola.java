@@ -2,51 +2,69 @@ public class Cola {
 
     private Cliente[] clientes;
     private final int CAPACIDAD_MAXIMA = 30;
-    private int minutosSinClientes;
     private int tamaño;
     private Console console;
 
     public Cola() {
         clientes = new Cliente[CAPACIDAD_MAXIMA];
-        minutosSinClientes = 0;
         tamaño = 0;
         console = new Console();
     }
 
-    public void registrarEstado() {
-        if (tamaño == 0) {
-            minutosSinClientes = minutosSinClientes + 1;
+    public boolean encolar(Cliente nuevoCliente) {
+        if (estaLlena() || nuevoCliente == null) {
+            return false;
         }
+
+        if (nuevoCliente.tienePrioridad()) {
+            insertarPrioritario(nuevoCliente);
+        } else {
+            insertarAlFinal(nuevoCliente);
+        }
+
+        tamaño++;
+        return true;
     }
 
-    public void añadirCliente(Cliente cliente) {
+    private void insertarAlFinal(Cliente cliente) {
         clientes[tamaño] = cliente;
-        tamaño = tamaño + 1;
     }
 
-    public boolean hayClientes() {
-        return tamaño > 0;
+    private void insertarPrioritario(Cliente clientePrioritario) {
+        int indiceInsercion = 0;
+        for (int i = 0; i < tamaño; i++) {
+            if (clientes[i].tienePrioridad()) {
+                indiceInsercion = i + 1;
+            }
+        }
+
+        for (int i = tamaño; i > indiceInsercion; i--) {
+            clientes[i] = clientes[i - 1];
+        }
+
+        clientes[indiceInsercion] = clientePrioritario;
     }
 
-    public Cliente quitarCliente() {
-        Cliente cliente = clientes[0];
+    public Cliente desencolar() {
+        if (estaVacia()) {
+            return null;
+        }
+
+        Cliente atendido = clientes[0];
         for (int i = 0; i < tamaño - 1; i++) {
             clientes[i] = clientes[i + 1];
         }
         clientes[tamaño - 1] = null;
-        tamaño = tamaño - 1;
-        return cliente;
+        tamaño--;
+        return atendido;
     }
 
-    public void mostrar() {
-        for (int i = 0; i < tamaño; i++) {
-            clientes[i].mostrar();
-        }
-        console.writeln();
+    public boolean estaVacia() {
+        return tamaño == 0;
     }
 
-    public int obtenerMinutosSinClientes() {
-        return minutosSinClientes;
+    public boolean estaLlena() {
+        return tamaño >= CAPACIDAD_MAXIMA;
     }
 
     public int obtenerCantidadPersonasEnCola() {
@@ -54,22 +72,16 @@ public class Cola {
     }
 
     public Cliente primero() {
+        if (estaVacia()) {
+            return null;
+        }
         return clientes[0];
     }
 
-    public boolean encolar(Cliente nuevoCliente) {
-        return false;
-    }
-
-    public Cliente desencolar() {
-        return null;
-    }
-
-    public boolean estaVacia() {
-        return false;
-    }
-
-    public boolean estaLlena() {
-        return false;
+    public void mostrar() {
+        for (int i = 0; i < tamaño; i++) {
+            clientes[i].mostrar();
+        }
+        console.writeln();
     }
 }
