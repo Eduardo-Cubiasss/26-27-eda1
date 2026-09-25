@@ -1,7 +1,7 @@
 public class Cola {
 
     private Cliente[] clientes;
-    private final int CAPACIDAD_MAXIMA = 100;
+    private final int CAPACIDAD_MAXIMA = 30;
     private int minutosSinClientes;
     private int tamaño;
     private Console console;
@@ -39,7 +39,7 @@ public class Cola {
     }
 
     public void mostrar() {
-        for(int i=0;i<tamaño;i++){
+        for (int i = 0; i < tamaño; i++) {
             clientes[i].mostrar();
         }
         console.writeln();
@@ -57,4 +57,19 @@ public class Cola {
         return clientes[0];
     }
 
+    public boolean encolar(Cliente nuevoCliente) {
+        return false;
+    }
+
+    public Cliente desencolar() {
+        return null;
+    }
+
+    public boolean estaVacia() {
+        return false;
+    }
+
+    public boolean estaLlena() {
+        return false;
+    }
 }
