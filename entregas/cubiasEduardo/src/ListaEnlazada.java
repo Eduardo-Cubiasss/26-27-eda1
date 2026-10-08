@@ -122,4 +122,40 @@ class ListaEnlazada {
             }
         }
     }
+
+    public static ListaEnlazada fusionar(ListaEnlazada a, ListaEnlazada b) {
+        ListaEnlazada resultado = new ListaEnlazada();
+        Nodo dummy = new Nodo(-1);
+        Nodo actual = dummy;
+        Nodo pa = (a != null) ? a.cabeza : null;
+        Nodo pb = (b != null) ? b.cabeza : null;
+
+        while (pa != null && pb != null) {
+            if (pa.dato <= pb.dato) {
+                actual.siguiente = pa;
+                pa = pa.siguiente;
+            } else {
+                actual.siguiente = pb;
+                pb = pb.siguiente;
+            }
+            actual = actual.siguiente;
+        }
+
+        if (pa != null) {
+            actual.siguiente = pa;
+        } else {
+            actual.siguiente = pb;
+        }
+
+        resultado.cabeza = dummy.siguiente;
+
+        if (a != null) {
+            a.cabeza = null;
+        }
+        if (b != null) {
+            b.cabeza = null;
+        }
+
+        return resultado;
+    }
 }
