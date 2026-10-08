@@ -90,4 +90,24 @@ class ListaEnlazada {
             }
         }
     }
+
+    public void eliminarRepetidos() {
+        Nodo dummy = new Nodo(-1);
+        dummy.siguiente = cabeza;
+        eliminarDuplicadosDesde(dummy);
+        cabeza = dummy.siguiente;
+    }
+
+    private void eliminarDuplicadosDesde(Nodo actual) {
+        while (actual.siguiente != null && actual.siguiente.siguiente != null) {
+            if (actual.siguiente.dato == actual.siguiente.siguiente.dato) {
+                int duplicado = actual.siguiente.dato;
+                do {
+                    actual.siguiente = actual.siguiente.siguiente;
+                } while (actual.siguiente != null && actual.siguiente.dato == duplicado);
+            } else {
+                actual = actual.siguiente;
+            }
+        }
+    }
 }
