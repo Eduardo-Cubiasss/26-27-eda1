@@ -98,6 +98,18 @@ class ListaEnlazada {
         cabeza = dummy.siguiente;
     }
 
+    public void eliminarRepetidosSinDummy() {
+        while (cabeza != null && cabeza.siguiente != null && cabeza.dato == cabeza.siguiente.dato) {
+            int duplicado = cabeza.dato;
+            do {
+                cabeza = cabeza.siguiente;
+            } while (cabeza != null && cabeza.dato == duplicado);
+        }
+        if (cabeza != null) {
+            eliminarDuplicadosDesde(cabeza);
+        }
+    }
+
     private void eliminarDuplicadosDesde(Nodo actual) {
         while (actual.siguiente != null && actual.siguiente.siguiente != null) {
             if (actual.siguiente.dato == actual.siguiente.siguiente.dato) {
