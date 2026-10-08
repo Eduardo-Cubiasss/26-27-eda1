@@ -1,4 +1,3 @@
-package listas.nodoDummy;
 
 class Nodo {
     int dato;

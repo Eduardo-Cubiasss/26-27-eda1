@@ -1,4 +1,3 @@
-package listas.nodoDummy;
 
 class ListaEnlazada {
     private Nodo cabeza;
