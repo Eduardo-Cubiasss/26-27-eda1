@@ -3,16 +3,27 @@
 ## Lista con objetos
 ```java
 
-class Candidatos {
+class Eleccion {
     String nombre;
     int votos;
 
-    public Candidatos();
-
-    public votar(nombreCandidato);
+    public Eleccion(String nombre);
+    public votar();
 }
 
-Candidatos elecciones = new Candidatos();
+class Lista {
+    
+    public Lista();
+    private agregarCandidato();
+    private boolean candidatoExiste();
+    private Eleccion buscarCandidato(String nombre);
+    public votar(String nombre) { 
+        // (candidatoExiste()) entonces pasar a votar directamente
+        // si no lo encontramos en buscarCandidato(nombre) entonces agregamosCandidato 
+    };  
+}
+
+Candidatos candidato...
 elecciones.votar('San Miguel');
 
 ```
